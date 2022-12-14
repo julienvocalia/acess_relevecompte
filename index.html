@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Démo VocalIA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./main.js"></script>
+  </head>
+  <body class="bg-white h-screen">
+    <nav class="bg-blue-800 text-white py-4 px-6">
+      <div class="container mx-auto">
+        <h1 class="font-semibold text-xl">Démo VocalIA</h1>
+      </div>
+    </nav>
+    <section class="hero py-8">
+      <div class="container mx-auto flex flex-col items-center space-y-12">
+        <div id="button-start-demo">
+          <button class="button rounded-full bg-blue-800 w-44 h-12 text-white">
+            Démarrer la démo
+          </button>
+        </div>
+        <div
+          id="container-player-audio"
+          class="hidden flex flex-col items-center space-y-6"
+        >
+          <p id="track-title"></p>
+          <audio id="player-audio" controls></audio>
+          <div class="flex flex-row mt-6 space-x-6">
+            <button
+              id="button-previous-track"
+              class="button rounded-full bg-blue-800 w-24 h-12 text-white"
+            >
+              Précédent
+            </button>
+            <button
+              id="button-next-track"
+              class="button rounded-full bg-blue-800 w-24 h-12 text-white"
+            >
+              Suivant
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
