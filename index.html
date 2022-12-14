@@ -1,47 +1,50 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Démo VocalIA</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="./main.js"></script>
+    <style>
+      body {
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgb(173, 216, 233);
+      }
+      
+      audio {
+        width: 100%;
+        height: 100px;
+      }
+      
+      button {
+        width: 48%;
+        height: 100%;
+        background-color: blue;
+        color: white;
+        font-size: 24px;
+      }
+    </style>
   </head>
-  <body class="bg-white h-screen">
-    <nav class="bg-blue-800 text-white py-4 px-6">
-      <div class="container mx-auto">
-        <h1 class="font-semibold text-xl">Démo VocalIA</h1>
-      </div>
-    </nav>
-    <section class="hero py-8">
-      <div class="container mx-auto flex flex-col items-center space-y-12">
-        <div id="button-start-demo">
-          <button class="button rounded-full bg-blue-800 w-44 h-12 text-white">
-            Démarrer la démo
-          </button>
-        </div>
-        <div
-          id="container-player-audio"
-          class="hidden flex flex-col items-center space-y-6"
-        >
-          <p id="track-title"></p>
-          <audio id="player-audio" controls></audio>
-          <div class="flex flex-row mt-6 space-x-6">
-            <button
-              id="button-previous-track"
-              class="button rounded-full bg-blue-800 w-24 h-12 text-white"
-            >
-              Précédent
-            </button>
-            <button
-              id="button-next-track"
-              class="button rounded-full bg-blue-800 w-24 h-12 text-white"
-            >
-              Suivant
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
+  <body>
+    <audio controls autoplay>
+      <source src="https://samplelib.com/lib/preview/mp3/sample-3s.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+    <button onclick="replayAudio()">Button 1</button>
+    <button onlick="nextAudio()">Button 2</button>
+    <script>
+      let audioIndex = 1;
+      let audio = document.querySelector('audio');
+  
+      function replayAudio() {
+          audio.currentTime = 0;
+          audio.play();
+      }
+  
+      function nextAudio() {
+          audioIndex++;
+          audio.src = "audio_" + audioIndex + ".mp3";
+          audio.play();
+      }
+    </script>
   </body>
 </html>
