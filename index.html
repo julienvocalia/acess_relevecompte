@@ -36,6 +36,7 @@
       var timecodes = [0, 0.5, 1, 1.5, 2, 2.5, 3]; // List of timecodes to jump to
       var counter = 0; // Counter to keep track of which timecode to jump to next
       function prevAudio() {
+        counter = currentCounter()
         if (counter > 0) {
           counter = counter - 1
         }
