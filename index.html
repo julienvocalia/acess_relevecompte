@@ -37,9 +37,6 @@
       var counter = 0; // Counter to keep track of which timecode to jump to next
       function prevAudio() {
         counter = currentCounter()
-        if (counter > 0) {
-          counter = counter - 1
-        }
         audio.currentTime = timecodes[counter];
         audio.play();
       }
