@@ -2,19 +2,20 @@
 <html>
   <head>
     <style>
-      html,body {
+      html,
+      body {
         width: 100%;
         height: 100%;
         align-items: center;
         justify-content: space-between;
         background-color: rgb(173, 216, 233);
       }
-      
+
       audio {
         width: 100%;
         height: 40px;
       }
-      
+
       button {
         width: 48%;
         height: calc(100% - 40px);
@@ -26,24 +27,37 @@
   </head>
   <body>
     <audio controls autoplay>
-      <source src="https://samplelib.com/lib/preview/mp3/sample-3s.mp3" type="audio/mp3">
-      Your browser does not support the audio element.
+      <source src="https://samplelib.com/lib/preview/mp3/sample-3s.mp3" type="audio/mp3"> Your browser does not support the audio element.
     </audio>
-    <button onclick="replayAudio()">Button 1</button>
-    <button onlick="nextAudio()">Button 2</button>
+    <button onclick="prevAudio()">Rejouer</button>
+    <button onclick="nextAudio()">Prochain</button>
     <script>
-      let audioIndex = 1;
       let audio = document.querySelector('audio');
-  
-      function replayAudio() {
-          audio.currentTime = 0;
-          audio.play();
+      var timecodes = [0, 0.5, 1, 1.5, 2, 2.5, 3]; // List of timecodes to jump to
+      var counter = 0; // Counter to keep track of which timecode to jump to next
+      function prevAudio() {
+        if (counter > 0) {
+          counter = counter - 1
+        }
+        audio.currentTime = timecodes[counter];
+        audio.play();
       }
-  
+
       function nextAudio() {
-          audioIndex++;
-          audio.src = "audio_" + audioIndex + ".mp3";
-          audio.play();
+        counter = currentCounter()
+        if (counter + 1 < timecodes.length) {
+          counter = counter + 1
+        }
+        audio.currentTime = timecodes[counter];
+        audio.play();
+      }
+
+      function currentCounter() {
+        cc = 0
+        while ((cc + 1 < timecodes.length) && (audio.currentTime >= timecodes[cc])) {
+          cc = cc + 1
+        }
+        return cc
       }
     </script>
   </body>
