@@ -27,13 +27,13 @@
   </head>
   <body>
     <audio controls autoplay>
-      <source src="https://samplelib.com/lib/preview/mp3/sample-3s.mp3" type="audio/mp3"> Your browser does not support the audio element.
+      <source src="exemple_facture.mp3" type="audio/mp3"> Your browser does not support the audio element.
     </audio>
     <button onclick="prevAudio()">Rejouer</button>
     <button onclick="nextAudio()">Prochain</button>
     <script>
       let audio = document.querySelector('audio');
-      var timecodes = [0, 0.5, 1, 1.5, 2, 2.5, 3]; // List of timecodes to jump to
+      var timecodes = [0, 10, 20, 30, 40, 50]; // List of timecodes to jump to
       var counter = 0; // Counter to keep track of which timecode to jump to next
       function prevAudio() {
         counter = currentCounter()
