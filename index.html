@@ -33,7 +33,7 @@
     <button onclick="nextAudio()">Prochain</button>
     <script>
       let audio = document.querySelector('audio');
-      var timecodes = [0, 10, 20, 30, 40, 50]; // List of timecodes to jump to
+      var timecodes = [0, 9, 18, 22, 34, 39]; // List of timecodes to jump to
       var counter = 0; // Counter to keep track of which timecode to jump to next
       function prevAudio() {
         counter = currentCounter()
@@ -55,7 +55,7 @@
 
       function currentCounter() {
         cc = 0
-        while ((cc + 1 < timecodes.length) && (audio.currentTime >= timecodes[cc])) {
+        while ((cc + 1 < timecodes.length) && (audio.currentTime >= timecodes[cc+1])) {
           cc = cc + 1
         }
         return cc
