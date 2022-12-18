@@ -30,20 +30,31 @@
     <audio controls autoplay>
       <source src="exemple_facture.mp3" type="audio/mp3"> Your browser does not support the audio element.
     </audio>
-    <button onclick="prevAudio()">
+    <button onclick="launchAudio()" id="launchButton" style="width: 98%"> Appuyer sur l'écran pour écouter votre courrier <br />
+      <br />
+      <i class="fa fa-play" style="font-size: 500%;"></i>
+    </button>
+    <button onclick="prevAudio()" id="prevButton" style="display: none">
       <i class="fa fa-backward" style="font-size: 500%;"></i>
     </button>
-    <button onclick="nextAudio()">
+    <button onclick="nextAudio()" id="nextButton" style="display: none">
       <i class="fa fa-forward" style="font-size: 500%;"></i>
     </button>
     <script>
       let audio = document.querySelector('audio');
       var timecodes = [0, 9, 18, 22, 34, 39]; // List of timecodes to jump to
       var counter = 0; // Counter to keep track of which timecode to jump to next
+      function launchAudio() {
+        document.getElementById("launchButton").style.display = "none";
+        audio.play()
+        document.getElementById("prevButton").style.display = "inline";
+        document.getElementById("nextButton").style.display = "inline";
+      }
+
       function prevAudio() {
         counter = currentCounter()
-        if ((audio.currentTime - timecodes[counter] < 1)&&(counter>0)){
-          counter=counter-1
+        if ((audio.currentTime - timecodes[counter] < 1) && (counter > 0)) {
+          counter = counter - 1
         }
         audio.currentTime = timecodes[counter];
         audio.play();
@@ -54,7 +65,7 @@
         if (counter + 1 < timecodes.length) {
           counter = counter + 1
         } else {
-          counter=0 
+          counter = 0
         }
         audio.currentTime = timecodes[counter];
         audio.play();
