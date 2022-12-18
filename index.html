@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
       html,
       body {
@@ -29,8 +30,12 @@
     <audio controls autoplay>
       <source src="exemple_facture.mp3" type="audio/mp3"> Your browser does not support the audio element.
     </audio>
-    <button onclick="prevAudio()">Rejouer</button>
-    <button onclick="nextAudio()">Prochain</button>
+    <button onclick="prevAudio()">
+      <i class="fa fa-backward" style="font-size: 500%;"></i>
+    </button>
+    <button onclick="nextAudio()">
+      <i class="fa fa-forward" style="font-size: 500%;"></i>
+    </button>
     <script>
       let audio = document.querySelector('audio');
       var timecodes = [0, 9, 18, 22, 34, 39]; // List of timecodes to jump to
@@ -52,41 +57,34 @@
 
       function currentCounter() {
         cc = 0
-        while ((cc + 1 < timecodes.length) && (audio.currentTime >= timecodes[cc+1])) {
+        while ((cc + 1 < timecodes.length) && (audio.currentTime >= timecodes[cc + 1])) {
           cc = cc + 1
         }
         return cc
       }
-      
-    let startX;
-    let endX;
-
-    // Listen for touchstart event
-    document.addEventListener('touchstart', e => {
-      startX = e.touches[0].clientX;
-    });
-
-    // Listen for touchend event
-    document.addEventListener('touchend', e => {
-      endX = e.changedTouches[0].clientX;
-
-      // Calculate the difference between the start and end X position
-      const diff = startX - endX;
-
-      // If the difference is greater than 0, the user swiped left.
-      // If the difference is less than 0, the user swiped right.
-      if (diff > 0) {
-        nextAudio() ;
-      } else if (diff < 0) {
-        prevAudio()
-      }
-    });
-
-    // Listen for touchmove event to prevent the default behavior (scrolling, zooming)
-    document.addEventListener('touchmove', e => {
-      e.preventDefault();
-    });
-      
+      let startX;
+      let endX;
+      // Listen for touchstart event
+      document.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+      });
+      // Listen for touchend event
+      document.addEventListener('touchend', e => {
+        endX = e.changedTouches[0].clientX;
+        // Calculate the difference between the start and end X position
+        const diff = startX - endX;
+        // If the difference is greater than 0, the user swiped left.
+        // If the difference is less than 0, the user swiped right.
+        if (diff > 0) {
+          nextAudio();
+        } else if (diff < 0) {
+          prevAudio()
+        }
+      });
+      // Listen for touchmove event to prevent the default behavior (scrolling, zooming)
+      document.addEventListener('touchmove', e => {
+        e.preventDefault();
+      });
     </script>
   </body>
 </html>
