@@ -57,6 +57,36 @@
         }
         return cc
       }
+      
+    let startX;
+    let endX;
+
+    // Listen for touchstart event
+    document.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+    });
+
+    // Listen for touchend event
+    document.addEventListener('touchend', e => {
+      endX = e.changedTouches[0].clientX;
+
+      // Calculate the difference between the start and end X position
+      const diff = startX - endX;
+
+      // If the difference is greater than 0, the user swiped left.
+      // If the difference is less than 0, the user swiped right.
+      if (diff > 0) {
+        nextAudio() ;
+      } else if (diff < 0) {
+        prevAudio()
+      }
+    });
+
+    // Listen for touchmove event to prevent the default behavior (scrolling, zooming)
+    document.addEventListener('touchmove', e => {
+      e.preventDefault();
+    });
+      
     </script>
   </body>
 </html>
