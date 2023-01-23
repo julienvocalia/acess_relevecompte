@@ -28,7 +28,7 @@
   </head>
   <body>
     <audio controls autoplay>
-      <source src="exemple_facture.mp3" type="audio/mp3"> Your browser does not support the audio element.
+      <source src="ReleveDeCompte.mp3" type="audio/mp3"> Your browser does not support the audio element.
     </audio>
     <button onclick="launchAudio()" id="launchButton" style="width: 98%"> Appuyer sur l'écran pour écouter votre courrier <br />
       <br />
@@ -42,7 +42,7 @@
     </button>
     <script>
       let audio = document.querySelector('audio');
-      var timecodes = [0, 9, 18, 22, 34, 39]; // List of timecodes to jump to
+      var timecodes = [0, 3,25,91,180,206]; // List of timecodes to jump to
       var counter = 0; // Counter to keep track of which timecode to jump to next
       function launchAudio() {
         document.getElementById("launchButton").style.display = "none";
