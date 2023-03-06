@@ -9,20 +9,39 @@
         height: 100%;
         align-items: center;
         justify-content: space-between;
-        background-color: rgb(173, 216, 233);
+        background-color: #f2e394;
       }
 
       progress {
-        width: 99%;
+        width: 98%;
         height: 60px;
         border-radius: 30px;
         align-items: center;
+        background-color: #f2e394;
+        border-width: 3px;
+        border-color: #d96459;
+      }
+
+      progress {
+        color: #d96459;
+      }
+
+      progress::-moz-progress-bar {
+        background: #d96459;
+      }
+
+      progress::-webkit-progress-value {
+        background: #d96459;
+      }
+
+      progress::-webkit-progress-bar {
+        background: #d96459;
       }
 
       button {
-        width: 30%;
-        height: calc(60% - 40px);
-        background-color: blue;
+        width: 32.3%;
+        height: calc(60% - 60px);
+        background-color: #d96459;
         color: white;
         font-size: 24px;
       }
@@ -35,7 +54,9 @@
     <div>
       <progress id="audio-progress" max="1"></progress>
     </div>
+    <br />
     <button onclick="launchAudio()" id="launchButton" style="width: 98%"> Appuyer sur l'écran pour écouter votre courrier <br />
+      <br />
       <br />
       <i class="fa fa-play" style="font-size: 500%;"></i>
     </button>
@@ -49,21 +70,22 @@
       <i class="fa fa-forward" style="font-size: 500%;"></i>
     </button>
     <br />
-    <button style="width:98%;height:calc(40% - 10px)">
-    	Enregistrer mon document dans mon coffre fort numérique.
-    </button>
+    <br />
+    <button style="width:98%;height:calc(35% - 20px)"> Enregistrer mon document dans mon coffre fort numérique. </button>
     <script>
+      const playpauseIcon = document.querySelector('#playpauseIcon');
       let audio = document.querySelector('audio');
-      var timecodes = [0, 3,25,88,176,202]; // List of timecodes to jump to
+      var timecodes = [0, 3, 25, 88, 176, 202]; // List of timecodes to jump to
       var counter = 0; // Counter to keep track of which timecode to jump to next
       let isPlaying = false;
+
       function launchAudio() {
         document.getElementById("launchButton").style.display = "none";
         audio.play()
         document.getElementById("pauseButton").style.display = "inline";
         document.getElementById("prevButton").style.display = "inline";
         document.getElementById("nextButton").style.display = "inline";
-        isPlaying=true;
+        isPlaying = true;
       }
 
       function prevAudio() {
@@ -72,21 +94,21 @@
           counter = counter - 1
         }
         audio.currentTime = timecodes[counter];
-        //audio.play();
+        audio.play();
       }
-      
+
       function playPause() {
-      	if (isPlaying) {
-      		audio.pause();
-      		isPlaying = false;
-            playpauseIcon.classList.remove('fa-pause');
-            playpauseIcon.classList.add('fa-play');
-    	  } else {
-        	audio.play();
-      		isPlaying = true;
-            playpauseIcon.classList.remove('fa-play');
-            playpauseIcon.classList.add('fa-pause');
-    	  }
+        if (isPlaying) {
+          audio.pause();
+          isPlaying = false;
+          playpauseIcon.classList.remove('fa-pause');
+          playpauseIcon.classList.add('fa-play');
+        } else {
+          audio.play();
+          isPlaying = true;
+          playpauseIcon.classList.remove('fa-play');
+          playpauseIcon.classList.add('fa-pause');
+        }
       }
 
       function nextAudio() {
@@ -97,45 +119,5 @@
           counter = 0
         }
         audio.currentTime = timecodes[counter];
-        //audio.play();
+        audio.play();
       }
-
-      function currentCounter() {
-        cc = 0
-        while ((cc + 1 < timecodes.length) && (audio.currentTime >= timecodes[cc + 1])) {
-          cc = cc + 1
-        }
-        return cc
-      }
-      let startX;
-      let endX;
-      // Listen for touchstart event
-      document.addEventListener('touchstart', e => {
-        startX = e.touches[0].clientX;
-      });
-      // Listen for touchend event
-      document.addEventListener('touchend', e => {
-        endX = e.changedTouches[0].clientX;
-        // Calculate the difference between the start and end X position
-        const diff = startX - endX;
-        // If the difference is greater than 0, the user swiped left.
-        // If the difference is less than 0, the user swiped right.
-        if (diff > 0) {
-          nextAudio();
-        } else if (diff < 0) {
-          prevAudio()
-        }
-      });
-      // Listen for touchmove event to prevent the default behavior (scrolling, zooming)
-      document.addEventListener('touchmove', e => {
-        e.preventDefault();
-      });
-      //display a progress bar instead of the audio player
-      const progress = document.querySelector('#audio-progress');
-
-      audio.addEventListener('timeupdate', () => {
-        progress.value = audio.currentTime / audio.duration;
-      });
-    </script>
-  </body>
-</html>
