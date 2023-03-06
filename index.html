@@ -27,9 +27,12 @@
     </style>
   </head>
   <body>
-    <audio controls autoplay>
-      <source src="ReleveDeCompte.mp3" type="audio/mp3"> Your browser does not support the audio element.
+    <audio autoplay>
+      <source src="ReleveDeCompte.mp3" type="audio/mp3"> Votre navigateur ne supporte pas la lecture de fichiers audios.
     </audio>
+    <div>
+      <progress id="audio-progress" max="1"></progress>
+    </div>
     <button onclick="launchAudio()" id="launchButton" style="width: 98%"> Appuyer sur l'écran pour écouter votre courrier <br />
       <br />
       <i class="fa fa-play" style="font-size: 500%;"></i>
@@ -100,6 +103,13 @@
       // Listen for touchmove event to prevent the default behavior (scrolling, zooming)
       document.addEventListener('touchmove', e => {
         e.preventDefault();
+      });
+      //display a progress bar instead of the audio player
+      const audio = document.querySelector('audio');
+      const progress = document.querySelector('#audio-progress');
+
+      audio.addEventListener('timeupdate', () => {
+        progress.value = audio.currentTime / audio.duration;
       });
     </script>
   </body>
