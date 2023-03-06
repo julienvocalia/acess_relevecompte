@@ -43,7 +43,7 @@
       <i class="fa fa-backward" style="font-size: 500%;"></i>
     </button>
     <button onclick="playPause()" id="pauseButton" style="display: none">
-      <i class="fa fa-pause" style="font-size: 500%;"></i>
+      <i id="playpauseIcon" class="fa fa-pause" style="font-size: 500%;"></i>
     </button>
     <button onclick="nextAudio()" id="nextButton" style="display: none">
       <i class="fa fa-forward" style="font-size: 500%;"></i>
@@ -75,10 +75,14 @@
       	if (isPlaying) {
       		audio.pause();
       		isPlaying = false;
-    	} else {
+            playpauseIcon.classList.remove('fa-pause');
+            playpauseIcon.classList.add('fa-play');
+    	  } else {
         	audio.play();
       		isPlaying = true;
-    	}
+            playpauseIcon.classList.remove('fa-play');
+            playpauseIcon.classList.add('fa-pause');
+    	  }
       }
 
       function nextAudio() {
