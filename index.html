@@ -75,18 +75,18 @@
       <progress id="audio-progress" max="1"></progress>
     </div>
     <br />
-    <button onclick="launchAudio()" id="launchButton" style="width: 98%"> Appuyer sur l'écran pour écouter votre courrier <br />
+    <button onclick="launchAudio()" ondblclick="launchAudio()" id="launchButton" style="width: 98%"> Appuyer sur l'écran pour écouter votre courrier <br />
       <br />
       <br />
       <i class="fa fa-play" style="font-size: 500%;"></i>
     </button>
-    <button onclick="prevAudio()" id="prevButton" style="display: none">
+    <button onclick="prevAudio()" ondblclick="prevAudio()" id="prevButton" style="display: none">
       <i class="fa fa-backward" style="font-size: 500%;"></i>
     </button>
-    <button onclick="playPause()" id="pauseButton" style="display: none">
+    <button onclick="playPause()" ondblclick="playPause()" id="pauseButton" style="display: none">
       <i id="playpauseIcon" class="fa fa-pause" style="font-size: 500%;"></i>
     </button>
-    <button onclick="nextAudio()" id="nextButton" style="display: none">
+    <button onclick="nextAudio()" ondblclick="nextAudio()" id="nextButton" style="display: none">
       <i class="fa fa-forward" style="font-size: 500%;"></i>
     </button>
     <br />
