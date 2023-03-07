@@ -76,18 +76,18 @@
       <progress id="audio-progress" max="1"></progress>
     </div>
     <br />
-    <button onclick="launchAudio()" ondblclick="launchAudio()" id="launchButton" style="width: 98%"> Appuyer sur l'écran pour écouter votre courrier <br />
+    <button onclick="launchAudio()" id="launchButton" style="width: 98%"> Appuyer sur l'écran pour écouter votre courrier <br />
       <br />
       <br />
       <i class="fa fa-play" style="font-size: 500%;"></i>
     </button>
-    <button onclick="prevAudio()" ondblclick="prevAudio()" id="prevButton" style="display: none">
+    <button onclick="prevAudio()" id="prevButton" style="display: none">
       <i class="fa fa-backward" style="font-size: 500%;"></i>
     </button>
-    <button onclick="playPause()" ondblclick="playPause()" id="pauseButton" style="display: none">
+    <button onclick="playPause()" id="pauseButton" style="display: none">
       <i id="playpauseIcon" class="fa fa-pause" style="font-size: 500%;"></i>
     </button>
-    <button onclick="nextAudio()" ondblclick="nextAudio()" id="nextButton" style="display: none">
+    <button onclick="nextAudio()" id="nextButton" style="display: none">
       <i class="fa fa-forward" style="font-size: 500%;"></i>
     </button>
     <br />
@@ -101,48 +101,59 @@
       var timecodes = [0, 3, 25, 88, 176, 202]; // List of timecodes to jump to
       var counter = 0; // Counter to keep track of which timecode to jump to next
       let isPlaying = false;
+      var lastTapTime = 0;
+      var doubletapped = false
 
       function launchAudio() {
-        document.getElementById("launchButton").style.display = "none";
-        audio.play()
-        document.getElementById("pauseButton").style.display = "inline";
-        document.getElementById("prevButton").style.display = "inline";
-        document.getElementById("nextButton").style.display = "inline";
-        isPlaying = true;
+        if (!doubletapped){
+          document.getElementById("launchButton").style.display = "none";
+          audio.play()
+          document.getElementById("pauseButton").style.display = "inline";
+          document.getElementById("prevButton").style.display = "inline";
+          document.getElementById("nextButton").style.display = "inline";
+          isPlaying = true;
+        }
       }
 
       function prevAudio() {
-        counter = currentCounter()
-        if ((audio.currentTime - timecodes[counter] < 1) && (counter > 0)) {
-          counter = counter - 1
+        if (!doubletapped){
+          counter = currentCounter()
+          if ((audio.currentTime - timecodes[counter] < 1) && (counter > 0)) {
+            counter = counter - 1
+          }
+          audio.currentTime = timecodes[counter];
+          audio.play();
         }
-        audio.currentTime = timecodes[counter];
-        audio.play();
       }
 
       function playPause() {
-        if (isPlaying) {
-          audio.pause();
-          isPlaying = false;
-          playpauseIcon.classList.remove('fa-pause');
-          playpauseIcon.classList.add('fa-play');
-        } else {
-          audio.play();
-          isPlaying = true;
-          playpauseIcon.classList.remove('fa-play');
-          playpauseIcon.classList.add('fa-pause');
+        if (!doubletapped){
+          if (isPlaying) {
+            audio.pause();
+            isPlaying = false;
+            playpauseIcon.classList.remove('fa-pause');
+            playpauseIcon.classList.add('fa-play');
+          } else {
+            audio.play();
+            isPlaying = true;
+            playpauseIcon.classList.remove('fa-play');
+            playpauseIcon.classList.add('fa-pause');
+          }
         }
       }
 
+
       function nextAudio() {
-        counter = currentCounter()
-        if (counter + 1 < timecodes.length) {
-          counter = counter + 1
-        } else {
-          counter = 0
+        if (!doubletapped){
+          counter = currentCounter()
+          if (counter + 1 < timecodes.length) {
+            counter = counter + 1
+          } else {
+            counter = 0
+          }
+          audio.currentTime = timecodes[counter];
+          audio.play();
         }
-        audio.currentTime = timecodes[counter];
-        audio.play();
       }
 
       function currentCounter() {
@@ -157,7 +168,17 @@
       // Listen for touchstart event
       document.addEventListener('touchstart', e => {
         startX = e.touches[0].clientX;
+        //we update the double tapped event
+        var currentTime = new Date().getTime();
+        var tapLength = currentTime - lastTapTime;
+        if (tapLength < 500 && tapLength > 0) {
+          doubletapped=true;
+        } else {
+          doubletapped=false;
+        }
+        lastTapTime=currentTime;
       });
+      
       // Listen for touchend event
       document.addEventListener('touchend', e => {
         endX = e.changedTouches[0].clientX;
