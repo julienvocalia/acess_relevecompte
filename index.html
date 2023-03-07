@@ -172,10 +172,6 @@
         }
       });
       
-      // Listen for touchmove event to prevent the default behavior (scrolling, zooming)
-      document.addEventListener('touchmove', e => {
-        e.preventDefault();
-      });
 
       //display a progress bar instead of the audio player
       const progress = document.querySelector('#audio-progress');
