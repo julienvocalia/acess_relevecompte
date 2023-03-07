@@ -174,10 +174,25 @@
       document.addEventListener('touchmove', e => {
         e.preventDefault();
       });
+      
       // Listen for doubleclick event to prevent the default behavior ( zooming)
-      document.addEventListener('dblclick', e => {
-        e.preventDefault();
+      let lastClick = 0;
+      document.addEventListener('touchstart', e => {
+        //e.preventDefault(); // to disable browser default zoom on double tap
+        let date = new Date();
+        let time = date.getTime();
+        const time_between_taps = 400; // 400ms
+        if (time - lastClick < time_between_taps) {
+          // do stuff
+          console.log("done");
+          e.preventDefault()
+        }
+        lastClick = time;
+      })
+        
+        
       });
+      
       //display a progress bar instead of the audio player
       const progress = document.querySelector('#audio-progress');
       audio.addEventListener('timeupdate', () => {
