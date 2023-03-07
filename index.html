@@ -17,49 +17,46 @@
         height: 60px;
         border-radius: 30px;
         align-items: center;
-        color:#f2e394;
+        color: #f2e394;
         border-width: 3px;
-	border-color: #d96459;
+        border-color: #d96459;
       }
-	    
-progress {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
 
-progress[value] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
+      progress {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
 
-progress:not([value]) {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-	    
-      
-	progress::-moz-progress-bar {
-  		background: #d96459;
-        
-	}
-	    
-	    
-	progress::-webkit-progress-bar {
-    	background: #f2e394;
-   	border-radius: 30px;
-	border-width: 3px;
-	border-color: #d96459;
-	}
+      progress[value] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
 
-	progress::-webkit-progress-value {
-    	background: #d96459;
-   	border-radius: 30px;
-	border-width: 3px;
-	border-color: #d96459;
-	}
+      progress:not([value]) {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+
+      progress::-moz-progress-bar {
+        background: #d96459;
+      }
+
+      progress::-webkit-progress-bar {
+        background: #f2e394;
+        border-radius: 30px;
+        border-width: 3px;
+        border-color: #d96459;
+      }
+
+      progress::-webkit-progress-value {
+        background: #d96459;
+        border-radius: 30px;
+        border-width: 3px;
+        border-color: #d96459;
+      }
 
       button {
         width: 32.3%;
@@ -68,7 +65,6 @@ progress:not([value]) {
         color: white;
         font-size: 24px;
       }
-           
     </style>
   </head>
   <body>
@@ -80,7 +76,8 @@ progress:not([value]) {
     </div>
     <br />
     <button onclick="launchAudio()" id="launchButton" style="width: 98%"> Appuyer sur l'écran pour écouter votre courrier <br />
-      <br /><br />
+      <br />
+      <br />
       <i class="fa fa-play" style="font-size: 500%;"></i>
     </button>
     <button onclick="prevAudio()" id="prevButton" style="display: none">
@@ -92,25 +89,25 @@ progress:not([value]) {
     <button onclick="nextAudio()" id="nextButton" style="display: none">
       <i class="fa fa-forward" style="font-size: 500%;"></i>
     </button>
-    <br /><br/>
+    <br />
+    <br />
     <a href="https://moncompte.laposte.fr/moncompte-auth/auth/realms/mon-compte/protocol/openid-connect/registrations?client_id=07b2920ff2e3f6b5add91da59c5adb2a&state=d588e84c-f824-4d42-a302-ff51e84898c7&redirect_uri=https%3A%2F%2Fauth.digiposte.fr%2Fv3%2Fcallback&scope=openid&response_type=code#xtor=AL-LPFR2C_connexion-[lpfr2C]-[lpfr]">
-    <button style="width:98%;height:calc(35% - 20px)">
-    	Enregistrer mon document dans mon coffre fort numérique.
-    </button>
+      <button style="width:98%;height:calc(35% - 20px)"> Enregistrer mon document dans mon coffre fort numérique. </button>
     </a>
     <script>
       const playpauseIcon = document.querySelector('#playpauseIcon');
       let audio = document.querySelector('audio');
-      var timecodes = [0, 3,25,88,176,202]; // List of timecodes to jump to
+      var timecodes = [0, 3, 25, 88, 176, 202]; // List of timecodes to jump to
       var counter = 0; // Counter to keep track of which timecode to jump to next
       let isPlaying = false;
+
       function launchAudio() {
         document.getElementById("launchButton").style.display = "none";
         audio.play()
         document.getElementById("pauseButton").style.display = "inline";
         document.getElementById("prevButton").style.display = "inline";
         document.getElementById("nextButton").style.display = "inline";
-        isPlaying=true;
+        isPlaying = true;
       }
 
       function prevAudio() {
@@ -121,19 +118,19 @@ progress:not([value]) {
         audio.currentTime = timecodes[counter];
         audio.play();
       }
-      
+
       function playPause() {
-      	if (isPlaying) {
-      		audio.pause();
-      		isPlaying = false;
-            playpauseIcon.classList.remove('fa-pause');
-            playpauseIcon.classList.add('fa-play');
-    	} else {
-        	audio.play();
-      		isPlaying = true;
-            playpauseIcon.classList.remove('fa-play');
-            playpauseIcon.classList.add('fa-pause');
-    	}
+        if (isPlaying) {
+          audio.pause();
+          isPlaying = false;
+          playpauseIcon.classList.remove('fa-pause');
+          playpauseIcon.classList.add('fa-play');
+        } else {
+          audio.play();
+          isPlaying = true;
+          playpauseIcon.classList.remove('fa-play');
+          playpauseIcon.classList.add('fa-pause');
+        }
       }
 
       function nextAudio() {
@@ -179,7 +176,6 @@ progress:not([value]) {
       });
       //display a progress bar instead of the audio player
       const progress = document.querySelector('#audio-progress');
-
       audio.addEventListener('timeupdate', () => {
         progress.value = audio.currentTime / audio.duration;
       });
